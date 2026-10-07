@@ -6,7 +6,7 @@ Este repositório distribui somente os artefatos prontos para uso. O código de 
 
 ## Download
 
-Acesse a [Release v0.1.6](https://github.com/jefersonflus/namehostai-cli/releases/tag/v0.1.6) ou a [página de Releases](https://github.com/jefersonflus/namehostai-cli/releases).
+Acesse a [Release v0.1.7](https://github.com/jefersonflus/namehostai-cli/releases/tag/v0.1.7) ou a [página de Releases](https://github.com/jefersonflus/namehostai-cli/releases).
 
 A versão publicada inclui pacotes Windows e macOS:
 
@@ -39,7 +39,7 @@ Os pacotes não possuem assinatura de distribuição nem notarização. A compil
 
 ## Login
 
-No primeiro uso, o agente abre o portal NameHost para login web. Em servidores ou sessões SSH, use o fluxo de ativação por dispositivo; o endereço e o código mostrados pelo agente devem ser aprovados no portal.
+Use `namehost login --browser` para entrar pelo navegador ou `namehost login` para ativação por dispositivo. O endereço e o código mostrados pelo agente devem ser aprovados no portal.
 
 O agente recebe um token Bearer de sessão. A chave da conta escolhida durante a aprovação permanece no portal e não é enviada ao CLI.
 
@@ -51,6 +51,24 @@ O agente usa o gateway `https://ia.namehost.com.br` e o catálogo de modelos da 
 - `POST /v1/messages`
 - `POST /v1/chat/completions`
 - `POST /v1/responses`
+
+## Novidades da v0.1.7
+
+- `--effort` no agente, chat e TUI; `/effort` abre o seletor dentro da tela interativa (`/variants` também funciona). A escolha vale para as próximas mensagens e é salva por modelo; `Default` restaura o padrão do servidor.
+- GPT Luna/Sol via Responses usam níveis validados no gateway. Sonnet 5, Opus 5.5 e Fable 5.1 via Messages oferecem `low`, `medium`, `high`, `xhigh`, `max` conforme a documentação Claude; a aplicação efetiva desses presets pelo gateway ainda não está confirmada. O catálogo v2 do servidor tem prioridade sobre os presets locais.
+- O CLI respeita `max_output_tokens` publicado por modelo. `namehost models --json` mostra limites, protocolos e a origem dos níveis de effort.
+- `namehost doctor`, `namehost devices` e `namehost models --offline` permitem diagnóstico, gestão de dispositivos e consulta do catálogo salvo. Inferência continua exigindo conexão ao gateway.
+- Credenciais no cofre do sistema em Windows/macOS, rotação de refresh token serializada e limpeza local de login/cache mesmo se a revogação remota falhar. `namehost logout --local` limpa somente o estado local.
+- Correções de instaladores, atualização e API local autenticada para o SDK.
+
+Exemplos:
+
+```sh
+namehost agent --model gpt-6-sol --effort high "Analise este projeto"
+namehost chat --model claude-sonnet-5 --effort medium
+namehost doctor --json
+namehost devices
+```
 
 ## Atualizações
 
