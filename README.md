@@ -6,7 +6,7 @@ Este repositório distribui somente os artefatos prontos para uso. O código de 
 
 ## Download
 
-Acesse a [Release v0.1.7](https://github.com/jefersonflus/namehostai-cli/releases/tag/v0.1.7) ou a [página de Releases](https://github.com/jefersonflus/namehostai-cli/releases).
+Acesse a [Release v0.1.8](https://github.com/jefersonflus/namehostai-cli/releases/tag/v0.1.8) ou a [página de Releases](https://github.com/jefersonflus/namehostai-cli/releases).
 
 A versão publicada inclui pacotes Windows e macOS:
 
@@ -52,7 +52,15 @@ O agente usa o gateway `https://ia.namehost.com.br` e o catálogo de modelos da 
 - `POST /v1/chat/completions`
 - `POST /v1/responses`
 
-## Novidades da v0.1.7
+## Novidades da v0.1.8
+
+- Corrige o encerramento da interface interativa no Windows: `Ctrl+C` e `/exit` retornam ao prompt sem fechar a janela do CMD.
+- Evita que a consulta de capacidades do terminal apareça como `+q4d73` ao sair.
+- Restaura a tela e os modos do console depois da limpeza dos recursos do CLI.
+
+Os dois comandos de saída foram verificados no console tradicional do Windows x64, incluindo a execução de outro comando após o encerramento do agente. Os pacotes macOS e Windows ARM64 foram compilados e validados estruturalmente; execução nativa nessas plataformas permanece sem validação.
+
+## Funcionalidades da v0.1.7 mantidas na v0.1.8
 
 - `--effort` no agente, chat e TUI; `/effort` abre o seletor dentro da tela interativa (`/variants` também funciona). A escolha vale para as próximas mensagens e é salva por modelo; `Default` restaura o padrão do servidor.
 - GPT Luna/Sol via Responses usam níveis validados no gateway. Sonnet 5, Opus 5.5 e Fable 5.1 via Messages oferecem `low`, `medium`, `high`, `xhigh`, `max` conforme a documentação Claude; a aplicação efetiva desses presets pelo gateway ainda não está confirmada. O catálogo v2 do servidor tem prioridade sobre os presets locais.
